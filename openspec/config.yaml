@@ -1,0 +1,48 @@
+schema: spec-driven
+
+context: |
+  Harrier — зонтичный проект: десктопный и веб-клиент для протокола Matrix,
+  форк Cinny (https://github.com/cinnyapp/cinny).
+
+  Состав репозиториев:
+    - schadin/harrier-desktop — десктоп-обёртка на Tauri v2 (Rust), экспортирована
+      сюда как git-подмодуль `desktop/`.
+    - schadin/harrier — форк веб-клиента Cinny (React + TypeScript + Vite),
+      git-подмодуль Cinny внутри harrier-desktop.
+    - Upstream: cinnyapp/cinny, cinnyapp/cinny-desktop.
+
+  Технологический стек:
+    - Бэкенд (десктоп): Tauri v2, Rust, плагины tauri-plugin-* (localhost,
+      window-state, clipboard-manager, notification, fs, shell, http, process,
+      os, opener, dialog, global-shortcut).
+    - Фронтенд (веб): React 18, TypeScript, Vite, matrix-js-sdk, vanilla-extract,
+      react-router-dom, TanStack React Query, i18next, jotai.
+    - Сборка: npm-скрипты, Tauri CLI. Релизы: Windows (MSI), Linux (deb/AppImage),
+      macOS (DMG). Веб-версия публикуется на GitHub Pages.
+
+  Архитектурные особенности:
+    - Два режима: dev (Vite HMR, порт 8080) и release (статика из cinny/dist
+      раздаётся tauri-plugin-localhost на порту 44548).
+    - Ребрендинг при сборке: патч 0002-rebrand-harrier.patch применяется к
+      подмодулю cinny через scripts/rebrand.mjs и откатывается после сборки —
+      подмодуль остаётся в upstream-состоянии.
+    - Миграция настроек in.cinny.app → io.github.schadin.harrier при первом
+      старте (копирование без удаления, маркер migration.success).
+    - Версионирование синхронизировано: npm, Cargo.toml, tauri.conf.json.
+
+  Доменная модель (bounded contexts):
+    - presence — пользовательское присутствие и кастомный статус.
+    - messaging — статусы сообщений, маркеры прочтения, вложения.
+    - spaces — иерархия пространств, сортировка и навигация.
+    - notifications — системные уведомления.
+    - desktop-integration — трей, интеграция с Niri, буфер обмена, миграция.
+    - appearance — брендинг, темы оформления, иконки.
+    - delivery — сборка релизов, веб-публикация, i18n.
+
+  Инвариант протокола: фичи строятся только на механизмах и данных, которые
+  предоставляет протокол Matrix (события, read receipts, presence через
+  matrix-js-sdk). Если в протоколе нет механизма — функция не реализуется и
+  нестандартные обходные пути не изобретаются.
+
+  Задачи ведутся как GitHub issues в schadin/harrier-project (нумерация TK-XXXXX
+  сохранена для исторических ссылок).

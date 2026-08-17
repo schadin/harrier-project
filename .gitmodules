@@ -1,0 +1,4 @@
+[submodule "desktop"]
+	path = desktop
+	url = git@github.com:schadin/harrier-desktop.git
+	branch = harrier
