@@ -44,5 +44,5 @@ context: |
   matrix-js-sdk). Если в протоколе нет механизма — функция не реализуется и
   нестандартные обходные пути не изобретаются.
 
-  Задачи ведутся как GitHub issues в schadin/harrier-project (нумерация TK-XXXXX
-  сохранена для исторических ссылок).
+  Задачи ведутся как GitHub issues в schadin/harrier-project; ссылка на задачу —
+  её номер на GitHub (`#NN`).

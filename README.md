@@ -43,8 +43,8 @@ Matrix, форка [Cinny](https://github.com/cinnyapp/cinny).
 разработке. Спецификации возможностей находятся в [`openspec/specs/`](openspec/specs/),
 контекст проекта — в [`openspec/config.yaml`](openspec/config.yaml).
 
-Задачи ведутся как GitHub Issues в этом репозитории. Историческая нумерация `TK-XXXXX`
-сохранена для ссылок.
+Задачи ведутся как GitHub Issues в этом репозитории. Ссылка на задачу — её номер
+на GitHub (`#NN`).
 
 ## Инвариант протокола
 
