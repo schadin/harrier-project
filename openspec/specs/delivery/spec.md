@@ -79,10 +79,17 @@ Cargo.toml/Cargo.lock и tauri.conf.json командой `npm run bump <version
 (без аргумента — ошибка). Bump также обновляет подмодуль cinny до последнего
 тега. Версия изменяется только по явной команде пользователя.
 
+Дополнительно bump SHALL выводить числовую версию
+`bundle.windows.wix.version` для MSI-инсталлятора из semver-версии: WiX не
+принимает человекочитаемый pre-release, поэтому номер сборки переносится в
+четвёртое поле (`4.12.6-harrier.6-beta` → `4.12.6.6`). macOS и Linux собираются
+из полной semver-версии.
+
 #### Scenario: Подъём версии
 - **WHEN** выполняется `npm run bump <version>`
 - **THEN** версия обновляется во всех трёх манифестах, Cargo.lock переустановлен,
-  подмодуль cinny указывает на последний тег
+  подмодуль cinny указывает на последний тег, а `bundle.windows.wix.version`
+  содержит числовое значение, выведенное из pre-release
 
 ### Requirement: Чистые гейты качества кода
 Система SHALL поддерживать `npm run lint` и `npm run typecheck` в форке cinny
