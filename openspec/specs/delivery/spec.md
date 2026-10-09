@@ -33,6 +33,27 @@ macOS (DMG + tar.gz universal binary `--target universal-apple-darwin`).
 - **WHEN** открывается/обновляется pull request
 - **THEN** артефакты всех платформ собираются как `release-artifacts-*`
 
+### Requirement: Публикация релиза в двух репозиториях
+Система SHALL требовать создания GitHub Release с одним и тем же тегом в двух
+репозиториях: `schadin/harrier-desktop` (нативные артефакты и zip-архив) и
+`schadin/harrier` (веб-клиент). Workflow `pages-deploy.yml` находится в форке
+cinny и SHALL срабатывать только на публикации релиза в `schadin/harrier`,
+поэтому публикация релиза только в `schadin/harrier-desktop` SHALL считаться
+неполной: версия на GitHub Pages не обновляется. В релизе `harrier-desktop`
+SHALL присутствовать шесть артефактов: MSI, deb, AppImage, DMG,
+app.tar.gz и zip-архив исходников. Тег SHALL NOT переиспользоваться после
+публикации: артефакты уже загружены, пересборка требует нового тега.
+
+#### Scenario: Полный релиз обновляет и десктоп, и веб
+- **WHEN** выходит предрелиз или релиз
+- **THEN** релиз с тегом `v<version>` создан и в `schadin/harrier-desktop`,
+  и в `schadin/harrier`
+
+#### Scenario: Релиз только в десктопном репозитории
+- **WHEN** создан релиз только в `schadin/harrier-desktop`
+- **THEN** публикация считается неполной и версия на GitHub Pages остаётся
+  на предыдущей
+
 ### Requirement: Публикация веб-клиента на GitHub Pages
 Система SHALL автоматически деплоить веб-клиент на GitHub Pages при публикации
 release (workflow `pages-deploy.yml` в форке cinny). Перед сборкой применяется
@@ -72,6 +93,28 @@ LanguageDetector + http-backend; `fallbackLng: 'en'`, `load: 'languageOnly'`,
 - **WHEN** пользователь выбирает язык в настройках
 - **THEN** переведённые строки интерфейса отображаются на выбранном языке,
   отсутствующие ключи — фолбэк на английский
+
+### Requirement: Release notes предрелиза и релиза
+Система SHALL оформлять release notes с ссылками на задачи зонтика в виде полных
+Markdown-ссылок `[#NN](https://github.com/schadin/harrier-project/issues/NN)`.
+Короткая запись `#NN` SHALL использоваться в release notes, публикуемых в
+`schadin/harrier-desktop` и `schadin/harrier`, поскольку GitHub резолвит её в
+issues репозитория публикации, а issues в этих репозиториях не ведутся.
+Внутренние идентификаторы задач (`TK-NNNNN`) SHALL NOT использоваться.
+Состав изменений SHALL сверяться по коммитам диапазона предыдущий тег → текущий
+тег. Полный процесс выпуска (чек-листы предрелиза и финального релиза, создание
+релиза в обоих репозиториях, откат при сбое) SHALL быть описан в
+`docs/RELEASING.md` зонтичного репозитория.
+
+#### Scenario: Ссылки на задачи в release notes
+- **WHEN** публикуется предрелиз или релиз
+- **THEN** каждая задача в release notes указана полной Markdown-ссылкой на issue
+  зонтика `schadin/harrier-project`
+
+#### Scenario: Задачи в notes соответствуют issues зонтика
+- **WHEN** готовится публикация релиза
+- **THEN** номера задач из release notes проверены существованием issues в
+  зонтичном репозитории
 
 ### Requirement: Синхронное версионирование
 Система SHALL синхронизировать версию приложения между package.json,
