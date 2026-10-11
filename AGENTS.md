@@ -104,7 +104,18 @@ TanStack React Query, i18next, jotai.
    использовать полный вид `schadin/harrier-project#NN`.
 2. Описание задачи содержит цель, план реализации и учёт изменений по ходу работы.
 3. После завершения задачи коммит делается только после подтверждения пользователем.
-4. В release notes обоих репозиториев задачи указываются полными
+4. Крупные многомесячные работы ведутся как эпик-issue в этом репозитории и
+   трекаются через GitHub Project пользователя `schadin` (Board + Roadmap, поле
+   `Phase`). Первый эпик — «Harrier → Rust-ядро»
+   ([project #1](https://github.com/users/schadin/projects/1),
+   эпик [#59](https://github.com/schadin/harrier-project/issues/59)).
+5. Гранулярность трекинга: Project — эпик и фазы; issue фазы — отдельный OpenSpec
+   change; шаги реализации — `tasks.md` внутри change. Отдельные задачи из
+   `tasks.md` в Project не выносятся.
+6. На время эпика может действовать feature freeze на затрагиваемый слой: новые
+   фичи не начинаются, уже открытые изменения доводятся до конца. Область и срок
+   freeze описываются в теле эпика.
+7. В release notes обоих репозиториев задачи указываются полными
    Markdown-ссылками на issues зонтика:
    `[#50](https://github.com/schadin/harrier-project/issues/50)`. Короткая запись
    `#50` недопустима — GitHub резолвит её в issues того репозитория, где
