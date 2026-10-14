@@ -17,15 +17,16 @@
 
 ## 4. Настройка «Single instance»
 
-- [ ] 4.1 Вынести вычисление путей из `migrate.rs` в новый общий модуль `src-tauri/src/paths.rs` (`home_dir`, `base_config_dir`, `base_data_dir` — с сохранением всех `cfg` по платформам и значений по умолчанию); `migrate.rs` продолжает использовать их без изменения поведения, иначе логика `XDG_DATA_HOME` / `Application Support` / `APPDATA` продублируется
-- [ ] 4.2 Создать `src-tauri/src/settings.rs`: чтение и запись `singleInstance` в JSON-файл каталога данных; при ошибке чтения — значение `false` и запись в stderr, при ошибке записи — ошибка наружу
-- [ ] 4.3 В `lib.rs` читать флаг до `tauri::Builder` и регистрировать `tauri-plugin-single-instance` только при `true`
-- [ ] 4.4 Добавить команду `set_single_instance(app, enabled)` и зарегистрировать её в `invoke_handler`
-- [ ] 4.5 В `cinny/src/app/state/settings.ts` добавить поле `singleInstance: boolean` со значением по умолчанию `false`
-- [ ] 4.6 В `cinny/src/app/utils/desktop.ts` добавить `applySingleInstance(enabled)` по образцу `applyAutostart` (возвращает `false` при ошибке)
-- [ ] 4.7 В `ClientNonUIFeatures.tsx` применять настройку по изменению, при неудаче возвращать переключатель в прежнее положение
-- [ ] 4.8 В `General.tsx` (секция Desktop) добавить переключатель «Single instance» с описанием; на вебе секция скрыта, как сейчас
-- [ ] 4.9 `cargo check --locked`, `cargo clippy --locked`, `npm run lint`/`tsc` в `cinny`
+- [x] 4.1 Вынести вычисление путей из `migrate.rs` в новый общий модуль `src-tauri/src/paths.rs` (`home_dir`, `base_config_dir`, `base_data_dir` — с сохранением всех `cfg` по платформам и значений по умолчанию); `migrate.rs` продолжает использовать их без изменения поведения, иначе логика `XDG_DATA_HOME` / `Application Support` / `APPDATA` продублируется
+- [x] 4.2 Создать `src-tauri/src/settings.rs`: чтение и запись `singleInstance` в JSON-файл каталога данных; при ошибке чтения — значение `false` и запись в stderr, при ошибке записи — ошибка наружу
+  - Файл — `single-instance.json` формата `{"singleInstance": bool}` в каталоге данных приложения; путь вычисляется общим `paths::app_data_dir()` и для чтения, и для записи
+- [x] 4.3 В `lib.rs` читать флаг до `tauri::Builder` и регистрировать `tauri-plugin-single-instance` только при `true`
+- [x] 4.4 Добавить команду `set_single_instance(app, enabled)` и зарегистрировать её в `invoke_handler`
+- [x] 4.5 В `cinny/src/app/state/settings.ts` добавить поле `singleInstance: boolean` со значением по умолчанию `false`
+- [x] 4.6 В `cinny/src/app/utils/desktop.ts` добавить `applySingleInstance(enabled)` по образцу `applyAutostart` (возвращает `false` при ошибке)
+- [x] 4.7 В `ClientNonUIFeatures.tsx` применять настройку по изменению, при неудаче возвращать переключатель в прежнее положение
+- [x] 4.8 В `General.tsx` (секция Desktop) добавить переключатель «Single instance» с описанием; на вебе секция скрыта, как сейчас
+- [x] 4.9 `cargo check --locked`, `cargo clippy --locked`, `npm run lint`/`tsc` в `cinny`
 
 ## 5. Проверка настройки
 
