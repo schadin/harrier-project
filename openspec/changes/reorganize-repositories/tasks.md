@@ -12,7 +12,7 @@
 
 - [x] 2.1 Выполнить subtree merge ветки `harrier` репозитория `schadin/harrier` в `desktop/client/` с сохранением истории; зафиксировать источник в сообщении коммита
 - [x] 2.2 Проверить сохранность истории (`git log --follow` на выборке файлов; источник проверен по второму родителю merge, новый путь — через `--full-history`)
-- [ ] 2.3 Применить брендинг к `client/` постоянным коммитом (патч + ассеты, как в 1.1–1.2)
+- [x] 2.3 Применить брендинг к `client/` постоянным коммитом (патч + ассеты, как в 1.1–1.2)
 - [x] 2.4 Удалить подмодуль `cinny/` (`.gitmodules`, `git submodule deinit`, запись в `.git/modules`)
 - [x] 2.5 Обновить пути `cinny/` → `client/` в `tauri.conf.json` (`frontendDist`, `beforeBuildCommand`, `beforeDevCommand`, `devUrl`), `package.json`, workflows (`tauri.yml`, `test.yml`, `archive.yml` — убрать `submodules: true` и `cd cinny`)
 - [x] 2.6 Удалить `scripts/rebrand.mjs`, `0002-rebrand-harrier.patch`, npm-скрипты `rebrand:*` и шаг копирования `config.json`; оставить единый `client/config.json`
