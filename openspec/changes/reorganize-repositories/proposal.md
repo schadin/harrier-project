@@ -44,6 +44,8 @@ Cinny прекращается окончательно — а значит, и�
   версионирование подмодуля упраздняется.
 - `appearance`: ребрендинг выполняется постоянным коммитом брендинга в код
   клиента, а не применением/откатом патча при сборке.
+- `desktop-integration`: базовая иконка трея Harrier хранится в дереве клиента
+  и не требует применения/отката патча при сборке.
 
 ## Impact
 
@@ -54,7 +56,7 @@ Cinny прекращается окончательно — а значит, и�
 - **CI/CD**: `pages-deploy.yml` (веб), `tauri.yml`/`test.yml`/`archive.yml`
   (desktop, без submodules).
 - **Спецификации**: `openspec/specs/delivery/spec.md`,
-  `openspec/specs/appearance/spec.md`.
+  `openspec/specs/appearance/spec.md`, `openspec/specs/desktop-integration/spec.md`.
 - **Документация**: `docs/RELEASING.md`, `AGENTS.md` (зонтик и desktop),
   `openspec/config.yaml`.
 - **Не затрагивается**: Rust-код `src-tauri` (трей, миграция настроек),

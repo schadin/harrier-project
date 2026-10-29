@@ -17,9 +17,9 @@
 | Репозиторий | Роль | Подключение |
 |-------------|------|-------------|
 | `schadin/harrier-project` | Зонтик: спецификации, задачи, координация | этот репозиторий |
-| `schadin/harrier-desktop` | Десктоп-обёртка на Tauri v2 (Rust) | подмодуль `desktop/` |
-| `schadin/harrier` | Форк веб-клиента Cinny (React + TS + Vite) | отдельный репозиторий |
-| `cinnyapp/cinny` | Upstream веб-клиента | git-подмодуль внутри `desktop/` |
+| `schadin/harrier-desktop` | Монорепо: клиент React + десктоп-обёртка Tauri v2 (Rust) | подмодуль `desktop/` |
+| `schadin/harrier` | Автономный веб-legacy (React + TS + Vite), только критические фиксы | отдельный репозиторий |
+| `cinnyapp/cinny` | Upstream веб-клиента; синхронизация прекращена | — |
 | `cinnyapp/cinny-desktop` | Upstream десктоп-обёртки | — |
 
 ## Структура зонтика
@@ -49,19 +49,19 @@ harrier-project/
 | tauri-plugin-fs / shell / http / process / os / opener / dialog | Общие возможности |
 | tauri-plugin-global-shortcut | Глобальные горячие клавиши (desktop only) |
 
-### Веб («schadin/harrier» — форк Cinny, подмодуль `cinny/` внутри desktop)
+### Веб («schadin/harrier» — автономный веб-legacy, форк Cinny)
 React 18, TypeScript, Vite, matrix-js-sdk, vanilla-extract, react-router-dom,
 TanStack React Query, i18next, jotai.
 
 ### Особенности архитектуры
 - Два режима: **dev** (Vite HMR, порт 8080) и **release** (статика из
-  `cinny/dist` через localhost-плагин на порту 44548).
-- **Ребрендинг при сборке:** патч `0002-rebrand-harrier.patch` применяется к
-  подмодулю `cinny` через `scripts/rebrand.mjs` и откатывается после сборки —
-  подмодуль остаётся в upstream-состоянии.
+  `client/dist` через localhost-плагин на порту 44548).
+- **Брендинг в исходниках:** брендинг Harrier закоммичен в `desktop/client/` и
+  веб-legacy; сборка не требует применения или отката патчей.
 - **Миграция настроек:** при первом старте `in.cinny.app` → `io.github.schadin.harrier`
   (копирование без удаления, маркер `migration.success`).
-- Версионирование синхронизировано: npm, `Cargo.toml`, `tauri.conf.json`.
+- Версионирование десктопа синхронизировано: npm, `Cargo.toml`, `tauri.conf.json`;
+  веб-legacy версионируется независимо.
 
 ## Доменная модель
 
@@ -102,8 +102,8 @@ TanStack React Query, i18next, jotai.
 1. Все доработки ведутся как GitHub Issues в этом репозитории
    (`https://github.com/schadin/harrier-project/issues`). В заголовках и сообщениях
    коммитов задача указывается номером issue на GitHub (`#NN`). В коммитах
-   подмодулей (`desktop/`, форк `cinny/`) для ссылки на issue зонтика
-   использовать полный вид `schadin/harrier-project#NN`.
+   связанных репозиториев (`desktop/`, веб-legacy `schadin/harrier`) для ссылки
+   на issue зонтика использовать полный вид `schadin/harrier-project#NN`.
 2. Описание задачи содержит цель, план реализации и учёт изменений по ходу работы.
 3. После завершения задачи коммит делается только после подтверждения пользователем.
 4. Крупные многомесячные работы ведутся как эпик-issue в этом репозитории и
@@ -131,7 +131,7 @@ TanStack React Query, i18next, jotai.
    (`npm run bump <version>` в `desktop/`). Самостоятельно поднимать версию нельзя.
 2. Процесс выпуска предрелизов и релизов — по
    [docs/RELEASING.md](docs/RELEASING.md): чек-листы, правила оформления release
-   notes, создание релиза в обоих репозиториях, откат при сбое.
+   notes, создание десктоп-релиза и автономные релизы веб-legacy, откат при сбое.
 
 ### Ветки и публикация
 
@@ -150,7 +150,7 @@ TanStack React Query, i18next, jotai.
 отдельный репозиторий (`cd desktop`, git-root там). Основные команды:
 
 ```sh
-cd desktop/cinny && npm ci
+cd desktop/client && npm ci
 cd ..
 npm ci
 npm run tauri dev      # dev-режим с HMR

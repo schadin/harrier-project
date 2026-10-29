@@ -21,6 +21,9 @@ macOS (DMG + tar.gz universal binary `--target universal-apple-darwin`).
 в релиз (workflow `archive.yml`). Клиент входит в дерево `harrier-desktop`,
 поэтому checkout субмодулей SHALL NOT требоваться. На каждый PR собирается
 проверочная сборка (workflow `test.yml`) без релиза. Все actions запинены по SHA.
+В релизе `harrier-desktop` SHALL присутствовать шесть артефактов: MSI, deb,
+AppImage, DMG, app.tar.gz и zip-архив исходников. Опубликованный тег SHALL NOT
+переиспользоваться: пересборка требует нового тега.
 
 #### Scenario: Публикация релиза
 - **WHEN** публикуется GitHub Release
@@ -61,7 +64,7 @@ release (workflow `pages-deploy.yml` в репозитории `schadin/harrier`
 ### Requirement: Release notes предрелиза и релиза
 Система SHALL оформлять release notes с ссылками на задачи зонтика в виде полных
 Markdown-ссылок `[#NN](https://github.com/schadin/harrier-project/issues/NN)`.
-Короткая запись `#NN` SHALL использоваться в release notes, публикуемых в
+Короткая запись `#NN` SHALL NOT использоваться в release notes, публикуемых в
 `schadin/harrier-desktop` и `schadin/harrier`, поскольку GitHub резолвит её в
 issues репозитория публикации, а issues в этих репозиториях не ведутся.
 Внутренние идентификаторы задач (`TK-NNNNN`) SHALL NOT использоваться.
