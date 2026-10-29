@@ -74,6 +74,8 @@ TanStack React Query, i18next, jotai.
 | desktop-integration | [spec](openspec/specs/desktop-integration/spec.md) | Трей, Niri, буфер обмена, миграция |
 | appearance | [spec](openspec/specs/appearance/spec.md) | Брендинг, темы Dracula/Alucard, иконка |
 | delivery | [spec](openspec/specs/delivery/spec.md) | Сборка релизов, Pages, i18n |
+| command-palette | [spec](openspec/specs/command-palette/spec.md) | Быстрый переход и команды, история, непрочитанные чаты |
+| dstaskbot | [spec](openspec/specs/dstaskbot/spec.md) | DsTaskBot: команды, карточки задач, сворачивание |
 
 ## Спецификации и рабочий процесс (OpenSpec)
 
