@@ -21,7 +21,7 @@
 - [x] 3.2 Реализовать JS test driver на публичном API SDK (`Room`, `store.storeRoom`, `currentState`, `recalculate`) без private `processSyncResponse` и `SyncApi`; fake transport добавить вместе с командами (задачи 7.x)
 - [x] 3.3 Добавить failing fixtures/tests для initial+incremental sync, join/invite/leave, room state, direct/space flags и hierarchy (initial — первое применение фикстуры, incremental — сохранение не упомянутых комнат и обновление имени; покрыто тестами)
 - [ ] 3.4 Добавить failing fixtures/tests для live timeline, pagination, reply/edit/reaction/redaction/thread и собственных/чужих receipts (сделано: live-сообщения, edit, reply, redaction, reactions, чужие read receipts как readBy, собственная позиция readUpTo, hasBackwardHistory; не начато: paginateBackward — нужен fake transport из 7.x, thread)
-- [ ] 3.5 Добавить failing fixtures/tests для sending status, presence/typing, unread/push rules, encrypted/decryption failure и notification preview (сделано: статусы отправки sending/sent/failed в таймлайне; не начато: presence/typing, unread/push rules, encrypted/decryption failure, notification preview)
+- [ ] 3.5 Добавить failing fixtures/tests для sending status, presence/typing, unread/push rules, encrypted/decryption failure и notification preview (сделано: sending status, presence по пользователю, typing по комнате; не начато: unread/push rules, encrypted/decryption failure, notification preview)
 
 ## 4. Auth и корневой lifecycle
 
