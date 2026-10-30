@@ -5,11 +5,12 @@ context: |
   форк Cinny (https://github.com/cinnyapp/cinny).
 
   Состав репозиториев:
-    - schadin/harrier-desktop — десктоп-обёртка на Tauri v2 (Rust), экспортирована
+    - schadin/harrier-desktop — монорепозиторий десктоп-клиента: React/TypeScript-
+      клиент в `client/` и Tauri v2/Rust-обёртка в `src-tauri/`; экспортирован
       сюда как git-подмодуль `desktop/`.
-    - schadin/harrier — форк веб-клиента Cinny (React + TypeScript + Vite),
-      git-подмодуль Cinny внутри harrier-desktop.
-    - Upstream: cinnyapp/cinny, cinnyapp/cinny-desktop.
+    - schadin/harrier — автономный веб-legacy (React + TypeScript + Vite),
+      публикуется на GitHub Pages и получает только критические исправления.
+    - Upstream: cinnyapp/cinny, cinnyapp/cinny-desktop; синхронизация прекращена.
 
   Технологический стек:
     - Бэкенд (десктоп): Tauri v2, Rust, плагины tauri-plugin-* (localhost,
@@ -21,14 +22,14 @@ context: |
       macOS (DMG). Веб-версия публикуется на GitHub Pages.
 
   Архитектурные особенности:
-    - Два режима: dev (Vite HMR, порт 8080) и release (статика из cinny/dist
+    - Два режима: dev (Vite HMR, порт 8080) и release (статика из client/dist
       раздаётся tauri-plugin-localhost на порту 44548).
-    - Ребрендинг при сборке: патч 0002-rebrand-harrier.patch применяется к
-      подмодулю cinny через scripts/rebrand.mjs и откатывается после сборки —
-      подмодуль остаётся в upstream-состоянии.
+    - Брендинг Harrier закоммичен непосредственно в исходники клиента; сборка не
+      требует применения или отката патчей.
     - Миграция настроек in.cinny.app → io.github.schadin.harrier при первом
       старте (копирование без удаления, маркер migration.success).
-    - Версионирование синхронизировано: npm, Cargo.toml, tauri.conf.json.
+    - Версионирование десктопа синхронизировано: npm, Cargo.toml,
+      tauri.conf.json; веб-legacy версионируется независимо.
 
   Доменная модель (bounded contexts):
     - presence — пользовательское присутствие и кастомный статус.

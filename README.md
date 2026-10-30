@@ -10,9 +10,9 @@ Matrix, форка [Cinny](https://github.com/cinnyapp/cinny).
 
 | Репозиторий | Роль | Доступ |
 |-------------|------|--------|
-| [`desktop/`](desktop/) (подмодуль → `schadin/harrier-desktop`) | Десктоп-обёртка на Tauri v2 (Rust) | приватный |
-| `schadin/harrier` | Форк веб-клиента Cinny (React + TypeScript + Vite) | публичный |
-| `cinnyapp/cinny` | Upstream веб-клиента (git-подмодуль внутри `desktop/`) | upstream |
+| [`desktop/`](desktop/) (подмодуль → `schadin/harrier-desktop`) | Монорепо: React-клиент в `client/` и десктоп-обёртка на Tauri v2 (Rust) | приватный |
+| `schadin/harrier` | Автономный веб-legacy (React + TypeScript + Vite), только критические фиксы | публичный |
+| `cinnyapp/cinny` | Upstream веб-клиента; синхронизация прекращена | upstream |
 | `cinnyapp/cinny-desktop` | Upstream десктоп-обёртки | upstream |
 
 ## Технологии

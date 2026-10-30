@@ -40,7 +40,7 @@
 
 ## 5. Вебвью: исполнитель и read-тулы
 
-- [ ] 5.1 Модуль `cinny/src/app/features/mcp/`: реестр обработчиков, подписка на `mcp://tool-call`, регистрация после инициализации Matrix-сессии
+- [ ] 5.1 Модуль `client/src/app/features/mcp/`: реестр обработчиков, подписка на `mcp://tool-call`, регистрация после инициализации Matrix-сессии
 - [ ] 5.2 `session_info`: MXID, homeserver, device id, состояние синка (без токенов и ключей)
 - [ ] 5.3 `list_rooms` с фильтром `all|unread|encrypted|dm`: идентификатор, имя, алиас, счётчики, `encrypted`, `is_dm`, число участников
 - [ ] 5.4 `get_room`: разрешение по id/алиасу/имени, детали и топик; ошибка `room_not_found`

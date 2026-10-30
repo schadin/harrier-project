@@ -8,13 +8,13 @@
 | Репозиторий | Что | Триггер |
 |-------------|-----|---------|
 | [`schadin/harrier-desktop`](https://github.com/schadin/harrier-desktop) | MSI, deb, AppImage, DMG, app.tar.gz | workflow `tauri.yml` на `release: published` |
-| [`schadin/harrier-desktop`](https://github.com/schadin/harrier-desktop) | zip-архив исходников с подмодулями | workflow `archive.yml` на `release: published` |
+| [`schadin/harrier-desktop`](https://github.com/schadin/harrier-desktop) | zip-архив исходников монорепозитория | workflow `archive.yml` на `release: published` |
 | [`schadin/harrier`](https://github.com/schadin/harrier) | веб-клиент на GitHub Pages | workflow `pages-deploy.yml` на `release: published` |
 
-**Релиз в `harrier-desktop` не обновляет веб-версию.** Workflow `pages-deploy.yml`
-живёт в форке cinny и срабатывает только на публикации релиза в `schadin/harrier`.
-Для каждого тега нужно создавать релиз в обоих репозиториях, иначе Pages останется
-на предыдущей версии.
+**Релиз в `harrier-desktop` не обновляет веб-версию.** Веб-legacy живёт автономно:
+workflow `pages-deploy.yml` срабатывает только на публикации релиза в
+`schadin/harrier`. Синхронные теги и релизы двух репозиториев больше не требуются;
+веб-legacy публикуется отдельно и только при необходимости (критические фиксы).
 
 Имена артефактов в релизе `harrier-desktop` (6 файлов):
 
@@ -78,27 +78,26 @@ Notes пишутся по коммитам между предыдущим и т
 
 ```sh
 cd desktop
-git log v<prev-tag>..v<new-tag> --format='%s (%h)'
+git log --first-parent v<prev-tag>..v<new-tag> --format='%s (%h)'
 ```
 
-Сверять нужно и с issues зонтика: задача могла быть закрыта несколькими коммитами
-с обновлением подмодуля `cinny`.
+Сверять нужно и с issues зонтика: задача могла быть закрыта несколькими коммитами.
 
 ## Чек-лист предрелиза
 
 1. **Задачи.** Все задачи, вошедшие в сборку, закрыты. Для незакрытых явно
    указать это в notes. Номера в notes проверены через `gh issue view`.
-2. **Качество кода.** В форке cinny ноль ошибок:
+2. **Качество кода.** В клиенте ноль ошибок:
    ```sh
-   cd desktop/cinny
+   cd desktop/client
    npm run lint
    npm run typecheck
    ```
 3. **Версия.** Поднимается **только по явной команде пользователя**
    (`npm run bump <version>` в `desktop/`). Команда синхронизирует
    `package.json`, `src-tauri/Cargo.toml`, `Cargo.lock` и
-   `src-tauri/tauri.conf.json`, переводит подмодуль `cinny` на последний тег
-   и выводит числовой `wix.version` для MSI. Самостоятельно версию не поднимать.
+   `src-tauri/tauri.conf.json` и выводит числовой `wix.version` для MSI.
+   Самостоятельно версию не поднимать.
 4. **Коммит.** Сообщение со ссылкой на issue зонтика в полном виде:
    `chore: bump до <version> (schadin/harrier-project#NN)`.
 5. **Тег и релиз.** Тег `v<version>`:
@@ -112,15 +111,10 @@ git log v<prev-tag>..v<new-tag> --format='%s (%h)'
 6. **Сборка артефактов.** Отследить три job'а `tauri.yml`
    (windows-x86_64, linux-x86_64, macos-universal) и `archive.yml`. Все должны
    завершиться успешно, в релизе должно быть 6 файлов по списку выше.
-7. **Веб-релиз.** Создать релиз с тем же тегом в форке cinny — иначе Pages не
-   обновится:
-   ```sh
-   gh release create v<version> --repo schadin/harrier \
-     --title "Harrier v<version> (web)" --notes-file /tmp/notes-web.md --prerelease
-   ```
-8. **Проверка веба.** Workflow `pages-deploy.yml` завершился успешно, версия в UI
-   соответствует тегу (`VITE_VERSION` подставляется из имени тега), ребрендинг
-   применён.
+Веб-legacy не входит в обязательный чек-лист десктоп-релиза. При критическом
+исправлении веб-версии создайте независимый релиз в `schadin/harrier` и проверьте,
+что `pages-deploy.yml` завершился успешно, а версия в UI соответствует его тегу
+(`VITE_VERSION` подставляется из имени тега). Брендинг уже находится в исходниках.
 
 ## Чек-лист финального релиза
 
@@ -131,7 +125,8 @@ git log v<prev-tag>..v<new-tag> --format='%s (%h)'
   отсутствует;
 - notes собираются по всем предрелизам, вошедшим в релиз, — не по последнему
   диапазону коммитов;
-- релиз создаётся без `--prerelease` в обоих репозиториях;
+- десктоп-релиз создаётся без `--prerelease`; веб-legacy публикуется отдельно
+  только при необходимости;
 - задачи предрелизов закрыты в зонтике.
 
 ## Откат при сбое
