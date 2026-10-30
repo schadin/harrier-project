@@ -5,7 +5,7 @@
 - [x] 1.1 Применить `0002-rebrand-harrier.patch` к ветке `harrier` репозитория `schadin/harrier` постоянным коммитом
 - [x] 1.2 Перенести ассеты брендинга из `desktop/assets/` в `schadin/harrier` (`harrier*.svg` → `public/res/svg/`, favicon-набор, apple-touch-icon и android-chrome наборы → `public/res/`, иконки → `public/icons/`)
 - [x] 1.3 Удалить из `pages-deploy.yml` шаги клонирования `harrier-desktop` и запуска `rebrand.mjs` (apply/revert)
-- [ ] 1.4 Проверить сборку веб-версии локально (`VITE_BASE=/harrier/ npm run build`) и деплой Pages после мержа (локальная сборка успешна; деплой ожидает публикации)
+- [x] 1.4 Проверить сборку веб-версии локально (`VITE_BASE=/harrier/ npm run build`) и деплой Pages после мержа
 - [x] 1.5 Обновить README `schadin/harrier`: статус «веб-legacy», только критические фиксы
 
 ## 2. Desktop: переезд клиента в монорепо
@@ -32,4 +32,4 @@
 - [x] 4.2 `npm run tauri dev` стартует без шагов ребрендинга (Vite и dev-сборка успешны; окно не проверено из-за занятого текущим Harrier порта 44548 — принято пользователем)
 - [x] 4.3 `npm run tauri build` собирает релизные артефакты локально
 - [x] 4.4 PR-сборка (`test.yml`) зелёная на всех платформах
-- [ ] 4.5 Контрольный предрелиз по новому процессу: артефакты desktop + Pages-деплой веб-legacy по прежнему URL
+- [x] 4.5 Контрольный предрелиз по новому процессу: артефакты desktop + Pages-деплой веб-legacy по прежнему URL

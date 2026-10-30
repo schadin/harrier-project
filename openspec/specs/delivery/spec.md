@@ -21,9 +21,13 @@ Pages, платформо-специфичные фиксы сборки, инт
 (workflow `tauri.yml`): Windows (MSI, `Harrier_desktop-x86_64.msi`), Linux
 (deb + AppImage, ubuntu-22.04 с зависимостями webkit2gtk/appindicator/rsvg),
 macOS (DMG + tar.gz universal binary `--target universal-apple-darwin`).
-Версия парсится из `tauri.conf.json`; исходники с подмодулями архивируются
-в релиз (workflow `archive.yml`). На каждый PR собирается проверочная сборка
-(workflow `test.yml`) без релиза. Все actions запинены по SHA.
+Версия парсится из `tauri.conf.json`; исходники репозитория архивируются
+в релиз (workflow `archive.yml`). Клиент входит в дерево `harrier-desktop`,
+поэтому checkout субмодулей SHALL NOT требоваться. На каждый PR собирается
+проверочная сборка (workflow `test.yml`) без релиза. Все actions запинены по SHA.
+В релизе `harrier-desktop` SHALL присутствовать шесть артефактов: MSI, deb,
+AppImage, DMG, app.tar.gz и zip-архив исходников. Опубликованный тег SHALL NOT
+переиспользоваться: пересборка требует нового тега.
 
 #### Scenario: Публикация релиза
 - **WHEN** публикуется GitHub Release
@@ -33,48 +37,29 @@ macOS (DMG + tar.gz universal binary `--target universal-apple-darwin`).
 - **WHEN** открывается/обновляется pull request
 - **THEN** артефакты всех платформ собираются как `release-artifacts-*`
 
-### Requirement: Публикация релиза в двух репозиториях
-Система SHALL требовать создания GitHub Release с одним и тем же тегом в двух
-репозиториях: `schadin/harrier-desktop` (нативные артефакты и zip-архив) и
-`schadin/harrier` (веб-клиент). Workflow `pages-deploy.yml` находится в форке
-cinny и SHALL срабатывать только на публикации релиза в `schadin/harrier`,
-поэтому публикация релиза только в `schadin/harrier-desktop` SHALL считаться
-неполной: версия на GitHub Pages не обновляется. В релизе `harrier-desktop`
-SHALL присутствовать шесть артефактов: MSI, deb, AppImage, DMG,
-app.tar.gz и zip-архив исходников. Тег SHALL NOT переиспользоваться после
-публикации: артефакты уже загружены, пересборка требует нового тега.
-
-#### Scenario: Полный релиз обновляет и десктоп, и веб
-- **WHEN** выходит предрелиз или релиз
-- **THEN** релиз с тегом `v<version>` создан и в `schadin/harrier-desktop`,
-  и в `schadin/harrier`
-
-#### Scenario: Релиз только в десктопном репозитории
-- **WHEN** создан релиз только в `schadin/harrier-desktop`
-- **THEN** публикация считается неполной и версия на GitHub Pages остаётся
-  на предыдущей
-
 ### Requirement: Публикация веб-клиента на GitHub Pages
 Система SHALL автоматически деплоить веб-клиент на GitHub Pages при публикации
-release (workflow `pages-deploy.yml` в форке cinny). Перед сборкой применяется
-ребрендинг из ветки `harrier` harrier-desktop (`REBRAND_CINNY_DIR`), после
-сборки revert выполняется всегда (`if: always()`). `base` задаётся через
-`VITE_BASE=/harrier/`, версия — через `VITE_VERSION` (из тега релиза); версия
-в UI через `__CINNY_VERSION__`. Деплой с `.nojekyll`,
-`configure-pages`/`upload-pages-artifact`/`deploy-pages`, concurrency group `pages`.
+release (workflow `pages-deploy.yml` в репозитории `schadin/harrier`).
+Брендинг закоммичен в код веб-репозитория, поэтому workflow SHALL NOT
+клонировать `harrier-desktop` и SHALL NOT применять/откатывать патчи.
+`base` задаётся через `VITE_BASE=/harrier/`, версия — через `VITE_VERSION`
+(из тега релиза); версия в UI через `__CINNY_VERSION__`. Деплой с `.nojekyll`,
+`configure-pages`/`upload-pages-artifact`/`deploy-pages`, concurrency group
+`pages`.
 
 #### Scenario: Релиз публикует веб-версию
-- **WHEN** публикуется GitHub Release
-- **THEN** веб-клиент собирается с брендингом, `VITE_BASE=/harrier/`
-  и деплоится на Pages
+- **WHEN** публикуется GitHub Release в `schadin/harrier`
+- **THEN** веб-клиент собирается из того же репозитория без внешних зависимостей
+  и деплоится на Pages по прежнему адресу `schadin.github.io/harrier/`
 
 ### Requirement: Сборка на ALT Linux
 Система SHALL собираться на ALT Linux через shim `scripts/bin/pkg-config`:
 для `--libs-only-L` с пустым выводом синтезируется `-L<libdir>` (обход бага
 `output.stdout[2..]` в tauri-cli); остальные вызовы прозрачны. npm-скрипт
-`tauri` копирует `config.json` в cinny и запускается через `scripts/tauri.mjs`,
-подставляющий `scripts/bin` в начало `PATH` и корректно пересылающий сигналы
-(SIGINT/SIGTERM) и код выхода дочернему процессу.
+`tauri` запускается через `scripts/tauri.mjs`, подставляющий `scripts/bin` в
+начало `PATH` и корректно пересылающий сигналы (SIGINT/SIGTERM) и код выхода
+дочернему процессу. Копирование `config.json` поверх клиента SHALL NOT
+требоваться: `config.json` клиента — единственный и живёт в дереве монорепо.
 
 #### Scenario: Бандлинг на ALT Linux
 - **WHEN** выполняется `tauri build` на ALT Linux
@@ -97,14 +82,14 @@ LanguageDetector + http-backend; `fallbackLng: 'en'`, `load: 'languageOnly'`,
 ### Requirement: Release notes предрелиза и релиза
 Система SHALL оформлять release notes с ссылками на задачи зонтика в виде полных
 Markdown-ссылок `[#NN](https://github.com/schadin/harrier-project/issues/NN)`.
-Короткая запись `#NN` SHALL использоваться в release notes, публикуемых в
+Короткая запись `#NN` SHALL NOT использоваться в release notes, публикуемых в
 `schadin/harrier-desktop` и `schadin/harrier`, поскольку GitHub резолвит её в
 issues репозитория публикации, а issues в этих репозиториях не ведутся.
 Внутренние идентификаторы задач (`TK-NNNNN`) SHALL NOT использоваться.
 Состав изменений SHALL сверяться по коммитам диапазона предыдущий тег → текущий
 тег. Полный процесс выпуска (чек-листы предрелиза и финального релиза, создание
-релиза в обоих репозиториях, откат при сбое) SHALL быть описан в
-`docs/RELEASING.md` зонтичного репозитория.
+релиза, откат при сбое) SHALL быть описан в `docs/RELEASING.md` зонтичного
+репозитория.
 
 #### Scenario: Ссылки на задачи в release notes
 - **WHEN** публикуется предрелиз или релиз
@@ -119,8 +104,8 @@ issues репозитория публикации, а issues в этих реп
 ### Requirement: Синхронное версионирование
 Система SHALL синхронизировать версию приложения между package.json,
 Cargo.toml/Cargo.lock и tauri.conf.json командой `npm run bump <version>`
-(без аргумента — ошибка). Bump также обновляет подмодуль cinny до последнего
-тега. Версия изменяется только по явной команде пользователя.
+(без аргумента — ошибка). Версия изменяется только по явной команде
+пользователя.
 
 Дополнительно bump SHALL выводить числовую версию
 `bundle.windows.wix.version` для MSI-инсталлятора из semver-версии: WiX не
@@ -131,11 +116,11 @@ Cargo.toml/Cargo.lock и tauri.conf.json командой `npm run bump <version
 #### Scenario: Подъём версии
 - **WHEN** выполняется `npm run bump <version>`
 - **THEN** версия обновляется во всех трёх манифестах, Cargo.lock переустановлен,
-  подмодуль cinny указывает на последний тег, а `bundle.windows.wix.version`
-  содержит числовое значение, выведенное из pre-release
+  а `bundle.windows.wix.version` содержит числовое значение, выведенное из
+  pre-release
 
 ### Requirement: Чистые гейты качества кода
-Система SHALL поддерживать `npm run lint` и `npm run typecheck` в форке cinny
+Система SHALL поддерживать `npm run lint` и `npm run typecheck` в клиенте
 в состоянии «0 errors» на базовой ревизии, чтобы они могли использоваться как
 гейты проверки любых доработок. Типовая резолюция TypeScript SHALL
 использовать режим `moduleResolution: "Bundler"` (совместимый с поставкой
@@ -146,7 +131,7 @@ prefer-template, no-param-reassign) отключаются override'ом кон�
 eslint-конфиге.
 
 #### Scenario: Гейт проверки доработки
-- **WHEN** выполняются `npm run lint` и `npm run typecheck` в форке cinny
+- **WHEN** выполняются `npm run lint` и `npm run typecheck` в клиенте
 - **THEN** обе команды завершаются без ошибок (0 errors)
 
 #### Scenario: Крипто-код не блокирует lint

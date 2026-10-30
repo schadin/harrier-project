@@ -2,14 +2,14 @@
 
 ## Purpose
 
-Внешний вид приложения: брендинг Harrier (применяется патчем при сборке без
-изменения подмодуля cinny), темы оформления и иконка приложения.
+Внешний вид приложения: брендинг Harrier, постоянно хранящийся в исходниках
+клиента без применения патча и без подмодуля, темы оформления и иконка приложения.
 
 ## Terms
 
-- **Ребрендинг** — применение патча `0002-rebrand-harrier.patch` к подмодулю
-  `cinny` через `scripts/rebrand.mjs`; обратная операция возвращает подмодуль
-  в upstream-состояние (`git apply -R` + `git checkout --`).
+- **Брендинг** — логотипы, названия, идентификаторы и связанные ресурсы Harrier,
+  закоммиченные непосредственно в исходники клиента; сборка не применяет и не
+  откатывает патчи.
 - **Тема оформления** — палитра vanilla-extract, регистрируемая в
   `useThemes()`/`useThemeNames()`; каждая тема связана с классом подсветки кода
   Prism.
@@ -18,33 +18,27 @@
 
 ## Requirements
 
-### Requirement: Ребрендинг Cinny → Harrier при сборке
-Система SHALL применять брендинг Harrier патчем `0002-rebrand-harrier.patch` через
-`scripts/rebrand.mjs` (`rebrand:apply` / `rebrand:revert`) и откатывать его после
-сборки — подмодуль `cinny` остаётся в upstream-состоянии. Применение идемпотентно
-(проверка обратной применимостью патча). Затрагиваются:
+### Requirement: Брендинг Harrier закоммичен в код клиента
+Система SHALL хранить брендинг Harrier непосредственно в коде клиента:
 About (логотип harrier.svg, «Powered by Cinny», удаление кнопки Support,
 third-party notices с атрибуцией AGPL), Welcome, SplashScreen, AuthFooter/
-AuthLayout/формы входа, SplashScreen, LocalBackup (экспорт `harrier-keys.txt`),
-системные уведомления (`brand: 'Harrier'`), имя устройства «Harrier»
+AuthLayout/формы входа, LocalBackup (экспорт `harrier-keys.txt`), системные
+уведомления (`brand: 'Harrier'`), имя устройства «Harrier»
 (`initial_device_display_name`), `index.html`, `manifest.json`. Логотипы
-`assets/harrier*.svg` копируются в `cinny/public/res/svg/`, favicon-набор и
-apple/android-иконки перезаписываются из ассетов. `productName`/`mainBinaryName`/
-`identifier` → `Harrier`/`harrier`/`io.github.schadin.harrier`. Автообновление
-удалено (updater, ключи подписи, `release.json` не используются).
+`harrier*.svg`, favicon-набор и apple/android-иконки SHALL входить в дерево
+клиента. `productName`/`mainBinaryName`/`identifier` SHALL быть
+`Harrier`/`harrier`/`io.github.schadin.harrier`. Автообновление SHALL NOT
+использоваться (updater, ключи подписи, `release.json` отсутствуют).
+Сборка SHALL NOT требовать шагов применения/отката брендинга.
 
 #### Scenario: Сборка с брендингом
-- **WHEN** выполняется `tauri build`
-- **THEN** патч брендинга применяется, фронтенд собирается, патч откатывается
+- **WHEN** выполняется `tauri build` или сборка веб-версии
+- **THEN** брендинг уже присутствует в исходниках, никакие патчи не применяются
 - **AND** бинарник идентифицируется как `Harrier` (`io.github.schadin.harrier`)
 
 #### Scenario: Dev-режим
 - **WHEN** выполняется `tauri dev`
-- **THEN** патч применяется (`beforeDevCommand`), revert выполняется вручную после сессии
-
-#### Scenario: Повторное применение
-- **WHEN** `rebrand:apply` вызывается поверх уже применённого патча
-- **THEN** операция не выполняется повторно (идемпотентность)
+- **THEN** dev-сервер стартует без каких-либо шагов ребрендинга
 
 ### Requirement: Темы Dracula и Alucard
 Система SHALL поддерживать тёмную тему Dracula и светлую Alucard (официальные
