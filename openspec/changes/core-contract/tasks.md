@@ -35,7 +35,7 @@
 
 - [ ] 5.1 Реализовать room/invite snapshots и membership updates до прохождения соответствующих sync contract tests
 - [ ] 5.2 Перевести Jotai room-list/invite/unread bindings, `useGetRoom`, `useRoom`, `RoomProvider` и sidebar/room-nav на `RoomView` и core subscriptions
-- [ ] 5.3 Реализовать room state/account data, permissions, members/profiles, direct/parent/children projections; перевести связанные hooks и utils
+- [ ] 5.3 Реализовать room state/account data, permissions, members/profiles, direct/parent/children projections; перевести связанные hooks и utils (сделано: RoomView с topic/encryption, members snapshots, getState и children; не начато: account data, permissions, profiles и миграция hooks)
 - [ ] 5.4 Перевести create/join/leave/invite, create room/chat/space, room directory и hierarchy на команды `rooms`
 - [ ] 5.5 Перевести common/room/space settings, developer tools, image packs и account-data editors без generic raw-event escape hatch
 - [ ] 5.6 Перенести чистую бизнес-логику room/unread/sort за ядро, оставив React formatting/selectors в UI; прогнать существующие tests и room contract tests
