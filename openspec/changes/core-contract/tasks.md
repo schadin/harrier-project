@@ -20,7 +20,7 @@
 - [x] 3.1 Определить `CoreContractHarness`, регистратор общего Vitest-сьюта и нормализованные assertions, не импортирующие SDK
 - [x] 3.2 Реализовать JS test driver на публичном API SDK (`Room`, `store.storeRoom`, `currentState`, `recalculate`) без private `processSyncResponse` и `SyncApi`; fake transport добавить вместе с командами (задачи 7.x)
 - [x] 3.3 Добавить failing fixtures/tests для initial+incremental sync, join/invite/leave, room state, direct/space flags и hierarchy (initial — первое применение фикстуры, incremental — сохранение не упомянутых комнат и обновление имени; покрыто тестами)
-- [ ] 3.4 Добавить failing fixtures/tests для live timeline, pagination, reply/edit/reaction/redaction/thread и собственных/чужих receipts (сделано: live-сообщения, edit, reply, redaction, reactions, чужие read receipts как readBy; не начато: pagination, thread, собственные receipts)
+- [ ] 3.4 Добавить failing fixtures/tests для live timeline, pagination, reply/edit/reaction/redaction/thread и собственных/чужих receipts (сделано: live-сообщения, edit, reply, redaction, reactions, чужие read receipts как readBy, hasBackwardHistory по pagination token; не начато: paginateBackward — нужен fake transport из 7.x, thread, собственные receipts)
 - [ ] 3.5 Добавить failing fixtures/tests для sending status, presence/typing, unread/push rules, encrypted/decryption failure и notification preview
 
 ## 4. Auth и корневой lifecycle
