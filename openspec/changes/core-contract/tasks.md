@@ -19,7 +19,7 @@
 
 - [x] 3.1 Определить `CoreContractHarness`, регистратор общего Vitest-сьюта и нормализованные assertions, не импортирующие SDK
 - [x] 3.2 Реализовать JS test driver на публичном API SDK (`Room`, `store.storeRoom`, `currentState`, `recalculate`) без private `processSyncResponse` и `SyncApi`; fake transport добавить вместе с командами (задачи 7.x)
-- [ ] 3.3 Добавить failing fixtures/tests для initial+incremental sync, join/invite/leave, room state, direct/space flags и hierarchy (сделано: join/invite-комнаты с именем, падающий тест подключён к JS-харнессу; остальное — не начато)
+- [ ] 3.3 Добавить failing fixtures/tests для initial+incremental sync, join/invite/leave, room state, direct/space flags и hierarchy (сделано: сценарий списка joined-комнат с именами проходит через минимальный `createMatrixJsCore`; `isDirect` пока всегда false, direct/space flags, leave, room state и hierarchy — не начаты)
 - [ ] 3.4 Добавить failing fixtures/tests для live timeline, pagination, reply/edit/reaction/redaction/thread и собственных/чужих receipts
 - [ ] 3.5 Добавить failing fixtures/tests для sending status, presence/typing, unread/push rules, encrypted/decryption failure и notification preview
 
