@@ -28,7 +28,7 @@
 - [ ] 4.1 Реализовать в `createMatrixJsCore()` инициализацию MatrixClient, IndexedDB stores, Rust crypto и обработку ошибок до прохождения auth contract tests
 - [ ] 4.2 Перенести server discovery, capabilities/media config, login/token/SSO и auth metadata в `auth`-модуль; перевести соответствующие pages/loaders
 - [ ] 4.3 Перенести registration, UIA stages, password reset и email flows в типизированные auth-операции; перевести auth pages без `MatrixError`/SDK enums
-- [ ] 4.4 Перенести session restore, start/stop/retry sync, session-logged-out, logout, clear cache/login data в ядро и покрыть lifecycle tests
+- [ ] 4.4 Перенести session restore, start/stop/retry sync, session-logged-out, logout, clear cache/login data в ядро и покрыть lifecycle tests (сделано: start/stop/logout, session и sync snapshots, prepared/error, fake logout; не начато: restore, retry, session-logged-out, clear cache/login data)
 - [ ] 4.5 Заменить `MatrixClientProvider` на `CoreProvider`, перевести `ClientRoot` и `useMatrixClient`-потребителей текущей партии; проверить login/start/logout smoke
 
 ## 5. Rooms, spaces, members и state
