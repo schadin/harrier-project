@@ -33,7 +33,7 @@
 
 ## 5. Rooms, spaces, members и state
 
-- [ ] 5.1 Реализовать room/invite snapshots и membership updates до прохождения соответствующих sync contract tests
+- [x] 5.1 Реализовать room/invite snapshots и membership updates до прохождения соответствующих sync contract tests
 - [ ] 5.2 Перевести Jotai room-list/invite/unread bindings, `useGetRoom`, `useRoom`, `RoomProvider` и sidebar/room-nav на `RoomView` и core subscriptions (сделано: rooms.all и rooms.unreads, room-list, invite, roomToParents и roomToUnread bindings, useCoreRoom, useCoreRoomMeta, useGetCoreRoom, CallRoomName, useDirectUsers, палитра, Search, AddExisting, LobbyHero, LobbyHeader, RoomIntro (метаданные), Space header, RoomSettings и SpaceSettings headers, RoomNavItem (имя), RoomViewHeader, CallEmbedProvider, RoomProfile; useRoomMeta удалён; остались useGetRoom, useRoom, RoomProvider и прочий sidebar/room-nav)
 - [x] 5.3 Реализовать room state/account data, permissions, members/profiles, direct/parent/children projections; перевести связанные hooks и utils (сделано: RoomView с topic/encryption, members snapshots, getState и children, permissions-проекции rooms.powerLevels/rooms.creators, чистая логика power levels в @harrier/core, хуки usePowerLevels/useRoomsPowerLevels/useRoomPermissions/useRoomCreators на core-снапшотах, rooms.accountData и миграция useRoomAccountData, rooms.parents с cycle-guard в ядре и перевод binding roomToParentsAtom, расширенный MemberView (avatarMxc/powerLevel/rawDisplayName/joinedAt/leftBySelf), логика сортировки/фильтров/поиска members в @harrier/core, миграция useRoomMembers и members-UI (MembersDrawer, Members, MemberTile, UserMentionAutocomplete, Room, Lobby); state-event хуки страниц настроек остаются для 5.5, глобальный account data — для 9.4)
 - [ ] 5.4 Перевести create/join/leave/invite, create room/chat/space, room directory и hierarchy на команды `rooms` (сделано: команды rooms.join/leave/invite и перевод LeaveRoomPrompt, RoomCard, InviteUserPrompt; не начато: create room/chat/space, room directory, hierarchy)
@@ -42,9 +42,9 @@
 
 ## 6. Timeline, relations и search
 
-- [ ] 6.1 Реализовать SDK→`TimelineItem` mappers и cached timeline snapshots до прохождения базовых timeline contract tests
+- [x] 6.1 Реализовать SDK→`TimelineItem` mappers и cached timeline snapshots до прохождения базовых timeline contract tests
 - [ ] 6.2 Реализовать live/paginated timelines, linked timeline projection, event-by-id и jump-to-event без `EventTimeline`/`Direction` в UI
-- [ ] 6.3 Реализовать reply/edit/reaction/redaction/thread/relations и receipts до прохождения relation contract tests
+- [x] 6.3 Реализовать reply/edit/reaction/redaction/thread/relations и receipts до прохождения relation contract tests
 - [ ] 6.4 Перевести `RoomTimeline`, message/state/encrypted renderers, reactions, readers, pinned events и room view на view-модели
 - [ ] 6.5 Перевести timeline visibility, member event parsing, custom HTML/message content и DsTaskBot helpers на типизированный content без `MatrixEvent`
 - [ ] 6.6 Перевести message search, relations queries, local summaries и room latest event на core; проверить 10k+ timeline performance и structural sharing
