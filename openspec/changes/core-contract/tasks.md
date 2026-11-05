@@ -43,7 +43,7 @@
 ## 6. Timeline, relations и search
 
 - [x] 6.1 Реализовать SDK→`TimelineItem` mappers и cached timeline snapshots до прохождения базовых timeline contract tests
-- [ ] 6.2 Реализовать live/paginated timelines, linked timeline projection, event-by-id и jump-to-event без `EventTimeline`/`Direction` в UI
+- [x] 6.2 Реализовать live/paginated timelines, linked timeline projection, event-by-id и jump-to-event без `EventTimeline`/`Direction` в UI (сделано: buildTimeline теперь проекция связанной цепочки таймлайнов (firstLinked→forward), hasBackwardHistory от токена первого звена; TimelineModule += focusEvent(roomId, eventId): Promise<CoreResult<number>> — getEventTimeline + последовательная backward-пагинация цепочки до нахождения, абсолютный индекс; clearFocus; TimelineView += focusedEventId; пагинация при фокусе идёт по цепочке фокуса; драйвер: timelineSupport в createClient и Room, /context fake (knownEvents по messages+history); контракт-тесты: focus по загруженному событию, focus через context-транспорт, clearFocus, not-found; UI-хуки src/app/hooks/useCoreTimeline.ts: useCoreTimeline/paginateCoreTimelineBackward/focusCoreEvent/clearCoreTimelineFocus — перенос RoomTimeline внутрь этих хуков остаётся для 6.4)
 - [x] 6.3 Реализовать reply/edit/reaction/redaction/thread/relations и receipts до прохождения relation contract tests
 - [ ] 6.4 Перевести `RoomTimeline`, message/state/encrypted renderers, reactions, readers, pinned events и room view на view-модели
 - [ ] 6.5 Перевести timeline visibility, member event parsing, custom HTML/message content и DsTaskBot helpers на типизированный content без `MatrixEvent`
