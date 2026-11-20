@@ -67,7 +67,7 @@
 ## 9. Media, presence и notifications
 
 - [ ] 9.1 Реализовать MXC/authenticated media, thumbnails, download/decrypt attachments, URL previews и media config в `media`; перевести media components/hooks
-- [ ] 9.2 Реализовать presence/typing/custom status snapshots и команды; перевести presence UI, user profiles и typing hooks
+- [ ] 9.2 Реализовать presence/typing/custom status snapshots и команды; перевести presence UI, user profiles и typing hooks (сделано: PresenceView расширен statusMessage/active/lastActiveTs, setOwnPresence в контракте и адаптере, useUserPresence и все его UI-потребители на core presence snapshots; typing и setTyping переведены в 7.3; остаток: plugin custom-status write-path и 9.3)
 - [ ] 9.3 Перенести custom status restore/retry и tray-status command handling на `presence`, сохранив desktop integration в JS
 - [ ] 9.4 Реализовать unread/highlight, notification mode/push rules и notification previews в `notifications`; перевести state/hooks/settings
 - [ ] 9.5 Перевести inbox notifications/invites и `ClientNonUIFeatures` на `NotificationView`; оставить только системный показ, звук, favicon и PNG трея в UI
