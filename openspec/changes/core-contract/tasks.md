@@ -59,7 +59,7 @@
 ## 8. Crypto
 
 - [ ] 8.1 Реализовать device list/trust, own/remote verification status и device commands; перевести device settings и status components (сделано: CryptoModule с DeviceView/DeviceTrust, device snapshots и команды rename/delete/refresh, 3 контракт-теста; useDeviceList/useDeviceVerificationStatus/useUnverifiedDeviceCount и device settings на core; остаток: UIA-удаление устройств с AuthDict/MatrixError, verification request/SAS — 8.2)
-- [ ] 8.2 Инкапсулировать verification request/SAS/verifier lifecycle в `crypto` snapshots/commands; перевести verification UI без CryptoApi и SDK event maps
+- [x] 8.2 Инкапсулировать verification request/SAS/verifier lifecycle в `crypto` snapshots/commands; перевести verification UI без CryptoApi и SDK event maps (сделано: VerificationRequestView с фазами/SAS/hasVerifier, VerificationModule с incoming/view/request/accept/cancel/startSas/confirmSas/mismatchSas, адаптер слушает request/verifier события, useVerificationRequest и DeviceVerification/VerifyOtherDeviceTile на core; полные crypto-фикстуры и ручной smoke — 8.5)
 - [ ] 8.3 Перенести secret storage, recovery key, backup info/restore/import progress и auto-restore в ядро; перевести BackupRestore/SecretStorage и hooks
 - [ ] 8.4 Перенести room key requests и retry-decryption-on-key-arrival; перевести encrypted content и decryption failure actions
 - [ ] 8.5 Прогнать crypto contract fixtures и ручной smoke verification, backup/restore, key request и decryption recovery
