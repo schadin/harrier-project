@@ -26,7 +26,7 @@
 ## 4. Auth и корневой lifecycle
 
 - [x] 4.1 Реализовать в `createMatrixJsCore()` инициализацию MatrixClient, IndexedDB stores, Rust crypto и обработку ошибок до прохождения auth contract tests (сделано через createMatrixJsClient; auth.start вызывается в ClientRoot)
-- [ ] 4.2 Перенести server discovery, capabilities/media config, login/token/SSO и auth metadata в `auth`-модуль; перевести соответствующие pages/loaders (сделано: auth.capabilities snapshot и refreshCapabilities, useCapabilities/CapabilitiesLoader на core; media config в 9.1; остаток: discovery/login/token/SSO и auth metadata pages)
+- [ ] 4.2 Перенести server discovery, capabilities/media config, login/token/SSO и auth metadata в `auth`-модуль; перевести соответствующие pages/loaders (сделано: auth.capabilities/authMetadata snapshots и refresh-команды, useCapabilities/useAuthMetadata на core; media config в 9.1; остаток: discovery/login/token/SSO pages)
 - [ ] 4.3 Перенести registration, UIA stages, password reset и email flows в типизированные auth-операции; перевести auth pages без `MatrixError`/SDK enums
 - [ ] 4.4 Перенести session restore, start/stop/retry sync, session-logged-out, logout, clear cache/login data в ядро и покрыть lifecycle tests (сделано: start/stop/logout, session и sync snapshots, prepared/error, fake logout; не начато: restore, retry, session-logged-out, clear cache/login data)
 - [ ] 4.5 Заменить `MatrixClientProvider` на `CoreProvider`, перевести `ClientRoot` и `useMatrixClient`-потребителей текущей партии; проверить login/start/logout smoke (сделано: CoreProvider добавлен, sync запускается через core.auth.start, production build зелёный; MatrixClientProvider пока сохранён для остальных потребителей)
