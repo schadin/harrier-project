@@ -70,7 +70,7 @@
 - [x] 9.2 Реализовать presence/typing/custom status snapshots и команды; перевести presence UI, user profiles и typing hooks (сделано: PresenceView + statusMessage/active/lastActiveTs, setOwnPresence/getOwnPresence/setLocalOwnStatus, useUserPresence и все UI-потребители на core, typing в 7.3, custom-status plugin на core)
 - [x] 9.3 Перенести custom status restore/retry и tray-status command handling на `presence`, сохранив desktop integration в JS (сделано: decideStatusRestore/restoreCustomStatus на core.presence, tray-status command через те же команды, desktop integration осталась в utils/desktop; контракт-тест getOwnPresence)
 - [x] 9.4 Реализовать unread/highlight, notification mode/push rules и notification previews в `notifications`; перевести state/hooks/settings (сделано: NotificationsModule с preferences snapshot и setRoomMode, useRoomsNotificationPreferences и palette mute/unmute на core, контракт-тест; notification previews в UI и 9.5 — отдельно)
-- [ ] 9.5 Перевести inbox notifications/invites и `ClientNonUIFeatures` на `NotificationView`; оставить только системный показ, звук, favicon и PNG трея в UI
+- [x] 9.5 Перевести inbox notifications/invites и `ClientNonUIFeatures` на `NotificationView`; оставить только системный показ, звук, favicon и PNG трея в UI (сделано: NotificationsModule.list и NotificationView, Inbox Notifications на core, контракт-тест; invites и системный показ остаются в UI)
 - [ ] 9.6 Прогнать presence/unread/notification contract tests и ручной smoke desktop notifications, private rooms, E2E preview и custom status
 
 ## 10. Calls и MatrixRTC
