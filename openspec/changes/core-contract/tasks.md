@@ -92,5 +92,5 @@
 - [x] 12.2 Прогнать `npm run lint`, typecheck и production build в `desktop/client`; добиться 0 errors и не добавить новых предупреждений (сделано: typecheck 0, ESLint 0 errors, production build успешен; предупреждения старые)
 - [x] 12.3 Прогнать `cargo test` и `npm run tauri build`; проверить release binary и отсутствие изменений версии (сделано: cargo test ok, tauri build ok — deb/rpm/AppImage, версия 4.12.6-harrier.9-beta без изменений)
 - [ ] 12.4 Выполнить ручной desktop smoke login/logout, rooms/spaces, timeline/threads, send/edit/reactions, crypto, media, presence, notifications и calls
-- [ ] 12.5 Обновить README пакетов и developer docs: назначение шва, создание адаптера, запуск contract suite и запрет raw SDK; согласовать с пользователем необходимость записи в основной README
+- [ ] 12.5 Обновить README пакетов и developer docs: назначение шва, создание адаптера, запуск contract suite и запрет raw SDK; согласовать с пользователем необходимость записи в основной README (сделано: client/packages/README.md; вопрос по основному README зонтика и desktop/ остаётся открытым)
 - [ ] 12.6 Обновить issue #61 итогами, проверками и оставшимися ограничениями; провести review change и подготовить к архивации только после подтверждения пользователя
