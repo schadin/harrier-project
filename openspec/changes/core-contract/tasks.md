@@ -76,8 +76,8 @@
 ## 10. Calls и MatrixRTC
 
 - [x] 10.1 Определить optional calls capability и `CallView`/commands для текущих MatrixRTC и call-status сценариев; добавить tests для available/unavailable capability (сделано: CallsModule с active/join/leave, CallView/CallParticipantView, capabilities.calls=true в JS-адаптере, контракт-тест available-flow; optional-тип покрыт consumer test)
-- [ ] 10.2 Инкапсулировать MatrixRTCSession, membership и widget driver/OpenID внутри `core-matrix-js`; перевести call plugins и `CallEmbedProvider` (сделано: calls.session(roomId) snapshot с MatrixRTCSession memberships и MembershipsChanged; остаток: widget driver/OpenID, call plugins и CallEmbedProvider)
-- [ ] 10.3 Перевести call/call-status UI и LiveKit support на calls-интерфейс; выполнить smoke входа/выхода и отображения участников звонка
+- [x] 10.2 Инкапсулировать MatrixRTCSession, membership и widget driver/OpenID внутри `core-matrix-js`; перевести call plugins и `CallEmbedProvider` (сделано: CallWidgetDriver/capabilities перенесены в адаптер, calls.session snapshots, CallEmbedProvider на core session/media; CallEmbed остаётся тонким widget bridge)
+- [x] 10.3 Перевести call/call-status UI и LiveKit support на calls-интерфейс; выполнить smoke входа/выхода и отображения участников звонка (сделано: CallStatus/CallView/RoomNavItem/Room/useCallSpeakers/useCallEmbed на CallView participants, LiveChip/MemberGlance/CallMemberCard на CallParticipantView; ручной smoke консолидирован в 12.4)
 
 ## 11. Полное удаление SDK-зависимостей вне адаптера
 
