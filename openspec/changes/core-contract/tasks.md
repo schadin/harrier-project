@@ -81,8 +81,8 @@
 
 ## 11. Полное удаление SDK-зависимостей вне адаптера
 
-- [ ] 11.1 Сверить исходный инвентарь 232 файлов с текущим поиском и перевести оставшиеся tests, types, plugins и compatibility-обёртки (сделано: calls widget driver, protocol types MsgType/IContent/UIA/push rules, ClientRoot/SyncStatus/useBindAtoms и global account data на core; остаток — R-файлы из инвентаря)
-- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (сделано: ClientRoot без MatrixClient, SyncStatus/useSyncState на auth.sync, mDirect/spaceSort/useAccountData на auth.accountData; остаток: useMatrixClient/useRoom и R-файлы)
+- [ ] 11.1 Сверить исходный инвентарь 232 файлов с текущим поиском и перевести оставшиеся tests, types, plugins и compatibility-обёртки (сделано: protocol types, room settings types, media MXC, SDK tests, profile/aliases/mutual/directory operations; остаток — R-файлы)
+- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (сделано: root/account data/profile/aliases/mutual/directory/readers на core; остаток: useMatrixClient/useRoom и R-файлы)
 - [x] 11.3 Включить `no-restricted-imports` для `matrix-js-sdk` и `matrix-js-sdk/*` с единственным override `packages/core-matrix-js/**`; расширить ESLint на `src` и `packages` (сделано: запрет на matrix-js-sdk/lib/crypto-api с override адаптера и проверкой, что импорт вне адаптера падает; удалён мёртвый useUserTrustStatusChange. Полный запрет на matrix-js-sdk и все subpath — после миграции оставшихся файлов)
 - [x] 11.4 Добавить отдельный CI/локальный поиск запрещённых вхождений и проверить, что случайный импорт вне адаптера даёт ошибку, а внутри адаптера — нет (сделано: scripts/check-core-boundary.mjs + npm run check:core-boundary, встроен в lint; проверено negative/positive)
 
