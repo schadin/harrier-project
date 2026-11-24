@@ -47,7 +47,7 @@
 - [x] 6.3 Реализовать reply/edit/reaction/redaction/thread/relations и receipts до прохождения relation contract tests
 - [x] 6.4 Перевести `RoomTimeline`, message/state/encrypted renderers, reactions, readers, pinned events и room view на view-модели (сделано: timeline source, send/edit/reactions/readers/pins/Reply/Message/PinnedMessage на TimelineItem; EncryptedContent подписан на core.timeline.event без MatrixEvent; source-code и часть mEvent-мостов остаются как legacy bridge до 11.2)
 - [x] 6.5 Перевести timeline visibility, member event parsing, custom HTML/message content и DsTaskBot helpers на типизированный content без `MatrixEvent` (сделано: isVisibleTimelineItem и member parsers на TimelineItem, message/bot helpers на content.raw; удалены мёртвые useRoomReadMarkers/isVisibleTimelineEvent; legacy custom HTML bridge — 11.2)
-- [ ] 6.6 Перевести message search, relations queries, local summaries и room latest event на core; проверить 10k+ timeline performance и structural sharing
+- [x] 6.6 Перевести message search, relations queries, local summaries и room latest event на core; проверить 10k+ timeline performance и structural sharing (сделано: rooms.searchMessages с view-моделями, useMessageSearch на core, useRoomLatestRenderedEvent на TimelineItem/useCoreTimeline, structural sharing из 2.2; контракт-тест search)
 
 ## 7. Send, typing, receipts и uploads
 
