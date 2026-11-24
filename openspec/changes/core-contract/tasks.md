@@ -10,7 +10,7 @@
 ## 2. Базовый контракт
 
 - [x] 2.1 Через failing type/runtime tests ввести `CoreError`, protocol JSON types, ID/string unions и нормализацию SDK-независимых ошибок
-- [ ] 2.2 Через tests реализовать generic `SnapshotStore<T>` с revision, cached `getSnapshot`, subscribe/unsubscribe и structural sharing (сделано: revision, cache, subscribe/unsubscribe, пропуск одинаковых значений; структурное sharing вложенных элементов остаётся за адаптером, см. задачи 5–6)
+- [x] 2.2 Через tests реализовать generic `SnapshotStore<T>` с revision, cached `getSnapshot`, subscribe/unsubscribe и structural sharing (сделано: deep structural sharing для plain object/array, revision не меняется на структурно равных значениях, неизменённые ветки переиспользуются; 2 новых теста)
 - [x] 2.3 Определить корневой `HarrierCore`, lifecycle и `CoreCapabilities`; проверить отсутствие raw-client/raw-room/raw-event в публичных типах
 - [x] 2.4 Определить базовые `SessionView`, `SyncView`, `RoomSummaryView`, `RoomView`, `MemberView`, `TimelineView`, `TimelineItem` и `SendStatusView` по потребностям текущих selectors
 - [x] 2.5 Добавить compile-only consumer test: потребитель использует `@harrier/core` без импорта реализации и SDK-типов
