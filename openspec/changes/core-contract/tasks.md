@@ -82,7 +82,7 @@
 ## 11. Полное удаление SDK-зависимостей вне адаптера
 
 - [x] 11.1 Сверить исходный инвентарь 232 файлов с текущим поиском и перевести оставшиеся tests, types, plugins и compatibility-обёртки (сделано: 0 прямых SDK-импортов в src, все оставшиеся SDK-типы заменены структурными/protocol-типами; SDK остался только в packages/core-matrix-js)
-- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (сделано: 0 прямых SDK-типов/импортов в UI, structural types; инвентарь legacy registry: 111 файлов / 182 вызова пяти основных API, миграция идёт партиями)
+- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (инвентарь legacy registry: 111 файлов / 182 вызова пяти основных API; 11.2a завершена: удалён мёртвый raw surface, boundary-проверка расширена AST-гейтом; остальные партии ожидают запуска)
 - [x] 11.3 Включить `no-restricted-imports` для `matrix-js-sdk` и `matrix-js-sdk/*` с единственным override `packages/core-matrix-js/**`; расширить ESLint на `src` и `packages` (сделано: полный SDK-запрет с override адаптера; ESLint проверяет src и packages)
 - [x] 11.4 Добавить отдельный CI/локальный поиск запрещённых вхождений и проверить, что случайный импорт вне адаптера даёт ошибку, а внутри адаптера — нет (сделано: scripts/check-core-boundary.mjs + npm run check:core-boundary, встроен в lint; PR workflow запускает lint/typecheck/Vitest/cargo test до Tauri build; проверено negative/positive)
 
