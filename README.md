@@ -6,6 +6,15 @@ Matrix, форка [Cinny](https://github.com/cinnyapp/cinny).
 > Это форк. Проект не претендует на оригинальность идеи: Cinny — лучший клиент для
 > Matrix, и вся заслуга принадлежит авторам оригинального проекта.
 
+## Контракт ядра `@harrier/core`
+
+В десктопном клиенте вводится `@harrier/core` — API-first контракт между React и движком Matrix.
+UI переводится на типизированные view-модели, команды и immutable snapshots вместо объектов `matrix-js-sdk`.
+JS-адаптер `@harrier/core-matrix-js` инкапсулирует SDK, а `@harrier/core-contract-tests` проверяет поведение на общих sync-фикстурах.
+Целевое правило — прямые импорты SDK разрешены только внутри JS-адаптера.
+Контракт готовит будущую Rust-реализацию; Rust-движок и веб-legacy в этот этап не входят.
+Подробности — [`desktop/client/packages/README.md`](desktop/client/packages/README.md).
+
 ## Состав
 
 | Репозиторий | Роль | Доступ |

@@ -81,8 +81,8 @@
 
 ## 11. Полное удаление SDK-зависимостей вне адаптера
 
-- [ ] 11.1 Сверить исходный инвентарь 232 файлов с текущим поиском и перевести оставшиеся tests, types, plugins и compatibility-обёртки (сделано: protocol types, room settings types, media MXC, SDK tests, state hooks, notification settings; остаток — R-файлы)
-- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (сделано: root/account data/profile/aliases/mutual/directory/readers/state hooks/notification CRUD на core; остаток: useMatrixClient/useRoom и R-файлы)
+- [x] 11.1 Сверить исходный инвентарь 232 файлов с текущим поиском и перевести оставшиеся tests, types, plugins и compatibility-обёртки (сделано: 0 прямых SDK-импортов в src, все оставшиеся SDK-типы заменены структурными/protocol-типами; SDK остался только в packages/core-matrix-js)
+- [ ] 11.2 Удалить `MatrixClient`/`Room`/`MatrixEvent` из props, contexts, Jotai/TanStack results и публичных UI utils; проверить отсутствие raw handles и SDK enums (сделано: 0 прямых SDK-типов/импортов в UI, structural types; остаток: legacy registry useMatrixClient/useRoom/useSpace и raw runtime handles)
 - [x] 11.3 Включить `no-restricted-imports` для `matrix-js-sdk` и `matrix-js-sdk/*` с единственным override `packages/core-matrix-js/**`; расширить ESLint на `src` и `packages` (сделано: запрет на matrix-js-sdk/lib/crypto-api с override адаптера и проверкой, что импорт вне адаптера падает; удалён мёртвый useUserTrustStatusChange. Полный запрет на matrix-js-sdk и все subpath — после миграции оставшихся файлов)
 - [x] 11.4 Добавить отдельный CI/локальный поиск запрещённых вхождений и проверить, что случайный импорт вне адаптера даёт ошибку, а внутри адаптера — нет (сделано: scripts/check-core-boundary.mjs + npm run check:core-boundary, встроен в lint; проверено negative/positive)
 
@@ -92,5 +92,5 @@
 - [x] 12.2 Прогнать `npm run lint`, typecheck и production build в `desktop/client`; добиться 0 errors и не добавить новых предупреждений (сделано: typecheck 0, ESLint 0 errors, production build успешен; предупреждения старые)
 - [x] 12.3 Прогнать `cargo test` и `npm run tauri build`; проверить release binary и отсутствие изменений версии (сделано: cargo test ok, tauri build ok — deb/rpm/AppImage, версия 4.12.6-harrier.9-beta без изменений)
 - [ ] 12.4 Выполнить ручной desktop smoke login/logout, rooms/spaces, timeline/threads, send/edit/reactions, crypto, media, presence, notifications и calls
-- [ ] 12.5 Обновить README пакетов и developer docs: назначение шва, создание адаптера, запуск contract suite и запрет raw SDK; согласовать с пользователем необходимость записи в основной README (сделано: client/packages/README.md; вопрос по основному README зонтика и desktop/ остаётся открытым)
+- [x] 12.5 Обновить README пакетов и developer docs: назначение шва, создание адаптера, запуск contract suite и запрет raw SDK; согласовать с пользователем необходимость записи в основной README (сделано: client/packages/README.md, desktop/README.md и README зонтика)
 - [ ] 12.6 Обновить issue #61 итогами, проверками и оставшимися ограничениями; провести review change и подготовить к архивации только после подтверждения пользователя
