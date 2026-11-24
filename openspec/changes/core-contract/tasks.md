@@ -75,7 +75,7 @@
 
 ## 10. Calls и MatrixRTC
 
-- [ ] 10.1 Определить optional calls capability и `CallView`/commands для текущих MatrixRTC и call-status сценариев; добавить tests для available/unavailable capability
+- [x] 10.1 Определить optional calls capability и `CallView`/commands для текущих MatrixRTC и call-status сценариев; добавить tests для available/unavailable capability (сделано: CallsModule с active/join/leave, CallView/CallParticipantView, capabilities.calls=true в JS-адаптере, контракт-тест available-flow; optional-тип покрыт consumer test)
 - [ ] 10.2 Инкапсулировать MatrixRTCSession, membership и widget driver/OpenID внутри `core-matrix-js`; перевести call plugins и `CallEmbedProvider`
 - [ ] 10.3 Перевести call/call-status UI и LiveKit support на calls-интерфейс; выполнить smoke входа/выхода и отображения участников звонка
 
