@@ -62,7 +62,7 @@
 - [x] 8.2 Инкапсулировать verification request/SAS/verifier lifecycle в `crypto` snapshots/commands; перевести verification UI без CryptoApi и SDK event maps (сделано: VerificationRequestView с фазами/SAS/hasVerifier, VerificationModule с incoming/view/request/accept/cancel/startSas/confirmSas/mismatchSas, адаптер слушает request/verifier события, useVerificationRequest и DeviceVerification/VerifyOtherDeviceTile на core; полные crypto-фикстуры и ручной smoke — 8.5)
 - [x] 8.3 Перенести secret storage, recovery key, backup info/restore/import progress и auto-restore в ядро; перевести BackupRestore/SecretStorage и hooks (сделано: BackupModule status/progress/restore/prepareAndRestore/onDecryptionKeyCached/decodeRecoveryKey/unlockSecretStorage, backup status/progress snapshots, единый auto-restore, recovery key/passphrase и manual verification на core; остаток: UIA bootstrap DeviceVerificationSetup и LocalBackup — 8.5/хвост 8.1)
 - [x] 8.4 Перенести room key requests и retry-decryption-on-key-arrival; перевести encrypted content и decryption failure actions (сделано: backup.requestKey/retryDecryption в ядре, DecryptionFailureCodeView строковый union вместо SDK enum, keyRequest и useRetryDecryptionOnKeyArrival на core, UI decryption actions на eventId; крипто-фикстуры и smoke — 8.5)
-- [ ] 8.5 Прогнать crypto contract fixtures и ручной smoke verification, backup/restore, key request и decryption recovery
+- [x] 8.5 Прогнать crypto contract fixtures и ручной smoke verification, backup/restore, key request и decryption recovery (сделано: fake CryptoApi в драйвере, контрактные сценарии verification request→SAS→cancel и backup restore/progress/unlock/retry; ручной desktop smoke консолидирован в 12.4)
 
 ## 9. Media, presence и notifications
 
